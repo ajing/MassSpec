@@ -64,7 +64,7 @@ def PlotRange(run):
 
 
 def MassToCharge(mass):
-    if mass > 4000:
+    if mass > 3200:
         mz16 = (mass- 3*1.007)/3
         mz18 = ((mass+2)-3*1.007)/3
     elif mass > 1300:
