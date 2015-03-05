@@ -24,9 +24,9 @@ def MassListParser(infile):
 
 def GetMassForBase(base, mass_dict):
     if len(base) == 1:
-        return mass_dict[base]["N"]
+        return mass_dict[base]["N"]+1.0079
     elif base.endswith("p"):
-        return mass_dict[base[0]]["N"]+79.980
+        return mass_dict[base[0]]["N"]+80.998
 
 def GetMassForSeq(seq, mass_dict):
     total = 0
@@ -34,7 +34,7 @@ def GetMassForSeq(seq, mass_dict):
     for each in seg:
         #print each,GetMassForBase(each, mass_dict)
         total += GetMassForBase(each, mass_dict)
-    total += (len(seq.replace("p","")) - 1) * 63.98050
+    total += (len(seq.replace("p","")) - 1) * 61.965
     return total
 
 def FivePrimePho(seq):
