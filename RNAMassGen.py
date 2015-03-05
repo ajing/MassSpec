@@ -26,7 +26,7 @@ def GetMassForBase(base, mass_dict):
     if len(base) == 1:
         return mass_dict[base]["N"]
     elif base.endswith("p"):
-        return mass_dict[base[0]]["Np"]
+        return mass_dict[base[0]]["N"]+79.980
 
 def GetMassForSeq(seq, mass_dict):
     total = 0
