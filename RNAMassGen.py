@@ -32,8 +32,9 @@ def GetMassForSeq(seq, mass_dict):
     total = 0
     seg = re.findall(".[p]?", seq)
     for each in seg:
-        print each,GetMassForBase(each, mass_dict)
+        #print each,GetMassForBase(each, mass_dict)
         total += GetMassForBase(each, mass_dict)
+    total += (len(seq.replace("p","")) - 1) * 63.98050
     return total
 
 def FivePrimePho(seq):
@@ -68,7 +69,7 @@ def Test():
     #GetMassForSeq("GGGp", massdict)
     print GetMassForSeq("CD", massdict)
     #assert(RNAGen("GGGGCUAUAGCUCAGCD") == ["CD", "Gp" , "CUCAGp", "CUAUAGp"])
-    #MassList("GGGGCUAUAGCUCAGCD", massdict)
+    MassList("GGGGCUAUAGCUCAGCD", massdict)
 
 if __name__ == "__main__":
     Test()
