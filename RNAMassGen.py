@@ -29,9 +29,9 @@ def MassListParser(infile):
 
 def GetMassForBase(base, mass_dict):
     if len(base) == 1:
-        return mass_dict[base]["N"]
+        return mass_dict[base]["N"]+1.0079
     elif base.endswith("p"):
-        return mass_dict[base[0]]["Np"]
+        return mass_dict[base[0]]["N"]+80.998
 
 def GetMassForSeq(seq, mass_dict):
     total = 0
@@ -39,7 +39,7 @@ def GetMassForSeq(seq, mass_dict):
     for each in seg:
         #print each,GetMassForBase(each, mass_dict)
         total += GetMassForBase(each, mass_dict)
-    total += (len(seq.replace("p","")) - 1) * 63.98050
+    total += (len(seq.replace("p","")) - 1) * 61.965
     return total
 
 def FivePrimePho(seq):
@@ -67,8 +67,7 @@ def MassList(seq, mass_dict):
     masslist = []
     for each in seq_list:
         masslist.append([each, GetMassForSeq(each, mass_dict)])
-    print masslist
-
+    return masslist
 
 # FastA file parser
 def FastAIter(fasta_name):
@@ -87,7 +86,29 @@ def FastAIter(fasta_name):
         seq = seq.replace("-", "")
         yield header, seq
 
-def UniqueMass(massdict, tolerance = 1):
+def UniqueMass(mass_list, tolerance):
+    mass_sort = sorted(mass_list)
+    uniq_elem = []
+    for i in range(len(mass_sort) - 1):
+        if i >= 1:
+            if not (mass_sort[i + 1] - mass_sort[i] < tolerance or mass_sort[i] - mass_sort[i - 1] < tolerance):
+                return value
+    return False
+
+def UniqueSegMass(seg_mass_list, tolerance = 0.5):
+    seg_mass = dict()
+    mass_list = [ mass for segname, mass in mass_list]
+    for seg_name, mass in mass_list:
+        for key_mass in seg_mass:
+        if not mass in seg_mass:
+            seg_mass[mass] = seg_name
+        else:
+            seg_mass[mass] = None
+    seg_mass_mod = dict()
+    for key, value in seg_mass.iteritems():
+        if not value is None:
+            seg_mass_mod[key] = value
+    return seg_mass_mod.keys()
 
 def Test():
     massdict =  MassListParser(MASS_FILE)
@@ -97,9 +118,16 @@ def Test():
     #MassList("GGGGCUAUAGCUCAGCD", massdict)
     each_trna = dict()
     for header, seq in FastAIter("./Data/tRNAseq.txt"):
-        print header, "seq", seq
-        print MassList(seq, massdict)
+        #print header, "seq", seq
+        each_trna[header] = dict()
+        each_trna[header]["seq"] = seq
+        each_trna[header]["mass_list"] = MassList(seq, massdict)
+    seg_mass = []
+    for key, value in each_trna.iteritems():
+        seg_mass += value["mass_list"]
+    print seg_mass, "yes"
+    print "yes"
 
 if __name__ == "__main__":
     Test()
-    RNAGen("GGGGCUAUAGCUCAGCDGGGAGAGCGCCUGCUUVGCACGCAGGAG")
+    #RNAGen("GGGGCUAUAGCUCAGCDGGGAGAGCGCCUGCUUVGCACGCAGGAG")
