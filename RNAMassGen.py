@@ -3,6 +3,11 @@
 '''
 import re
 import csv
+from itertools import groupby
+
+MASS_FILE = "./Data/modified_bases_list.txt_mod"
+
+
 
 def is_number(s):
     try:
@@ -64,12 +69,36 @@ def MassList(seq, mass_dict):
         masslist.append([each, GetMassForSeq(each, mass_dict)])
     print masslist
 
+
+# FastA file parser
+def FastAIter(fasta_name):
+    """
+    given a fasta file. yield tuples of header, sequence
+    """
+    fh = open(fasta_name)
+    # ditch the boolean (x[0]) and just keep the header or sequence since
+    # we know they alternate.
+    faiter = (x[1] for x in groupby(fh, lambda line: line[0] == ">"))
+    for header in faiter:
+        # drop the ">"
+        header = header.next()[1:].strip()
+        # join all sequence lines to one.
+        seq = "".join(s.strip() for s in faiter.next())
+        seq = seq.replace("-", "")
+        yield header, seq
+
+def UniqueMass(massdict, tolerance = 1):
+
 def Test():
-    massdict =  MassListParser("modified_bases_list.txt_mod")
+    massdict =  MassListParser(MASS_FILE)
     #GetMassForSeq("GGGp", massdict)
-    print GetMassForSeq("CD", massdict)
+    #print GetMassForSeq("CD", massdict)
     #assert(RNAGen("GGGGCUAUAGCUCAGCD") == ["CD", "Gp" , "CUCAGp", "CUAUAGp"])
-    MassList("GGGGCUAUAGCUCAGCD", massdict)
+    #MassList("GGGGCUAUAGCUCAGCD", massdict)
+    each_trna = dict()
+    for header, seq in FastAIter("./Data/tRNAseq.txt"):
+        print header, "seq", seq
+        print MassList(seq, massdict)
 
 if __name__ == "__main__":
     Test()
