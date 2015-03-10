@@ -86,48 +86,61 @@ def FastAIter(fasta_name):
         seq = seq.replace("-", "")
         yield header, seq
 
-def UniqueMass(mass_list, tolerance):
+def UniqueMass(mass_list, tolerance = 0.5):
     mass_sort = sorted(mass_list)
     uniq_elem = []
-    for i in range(len(mass_sort) - 1):
-        if i >= 1:
-            if not (mass_sort[i + 1] - mass_sort[i] < tolerance or mass_sort[i] - mass_sort[i - 1] < tolerance):
-                return value
-    return False
-
-def UniqueSegMass(seg_mass_list, tolerance = 0.5):
-    seg_mass = dict()
-    mass_list = [ mass for segname, mass in mass_list]
-    for seg_name, mass in mass_list:
-        for key_mass in seg_mass:
-        if not mass in seg_mass:
-            seg_mass[mass] = seg_name
+    i = 0
+    while i < len(mass_sort):
+        if i < len(mass_sort) - 1 and mass_sort[i + 1] - mass_sort[i] <= tolerance:
+            i += 2
+        elif i > 0 and mass_sort[i] - mass_sort[i - 1] <= tolerance:
+            i += 1
         else:
-            seg_mass[mass] = None
-    seg_mass_mod = dict()
-    for key, value in seg_mass.iteritems():
-        if not value is None:
-            seg_mass_mod[key] = value
-    return seg_mass_mod.keys()
+            uniq_elem.append(mass_sort[i])
+            i += 1
+    #print "final elements:", uniq_elem
+    return uniq_elem
+
+def UniqueRNAMass(rna_dict, uniq_m_list):
+    rna_uniq_mass = dict()
+    for header in rna_dict:
+        rna_uniq_mass[header] = []
+        for seg, mass in rna_dict[header]["mass_list"]:
+            if mass in uniq_m_list:
+                rna_uniq_mass[header].append([seg, mass])
+    return rna_uniq_mass
+
+def PrintNiceRNAMass(rna_dict):
+    for header in rna_dict:
+        print header
+        print "Unique Mass: " + "\t".join([",".join(map(str, x)) for x in rna_dict[header]])
 
 def Test():
-    massdict =  MassListParser(MASS_FILE)
     #GetMassForSeq("GGGp", massdict)
     #print GetMassForSeq("CD", massdict)
     #assert(RNAGen("GGGGCUAUAGCUCAGCD") == ["CD", "Gp" , "CUCAGp", "CUAUAGp"])
     #MassList("GGGGCUAUAGCUCAGCD", massdict)
+    assert UniqueMass([1,5,6,9], 1) == [1,9], UniqueMass([1,5,6,9], 1)
+    assert UniqueMass([1,2,6,9], 1) == [6,9], UniqueMass([1,2,6,9], 1)
+    assert UniqueMass([1,2,3,6,9], 1) == [6,9], UniqueMass([1,2,3,6,9], 1)
+    assert UniqueMass([1,2,4,8,9], 1) == [4], UniqueMass([1,2,4,8,9], 1)
+
+def TestSeg():
+    massdict =  MassListParser(MASS_FILE)
     each_trna = dict()
     for header, seq in FastAIter("./Data/tRNAseq.txt"):
         #print header, "seq", seq
         each_trna[header] = dict()
         each_trna[header]["seq"] = seq
         each_trna[header]["mass_list"] = MassList(seq, massdict)
-    seg_mass = []
+    seg_list = []
     for key, value in each_trna.iteritems():
-        seg_mass += value["mass_list"]
-    print seg_mass, "yes"
-    print "yes"
+        seg_list += value["mass_list"]
+    mass_list = [x[1] for x in seg_list]
+    uniq_m_list    = UniqueMass(mass_list)
+    uniq_rna_mass  = UniqueRNAMass(each_trna, uniq_m_list)
+    PrintNiceRNAMass(uniq_rna_mass)
 
 if __name__ == "__main__":
-    Test()
+    TestSeg()
     #RNAGen("GGGGCUAUAGCUCAGCDGGGAGAGCGCCUGCUUVGCACGCAGGAG")
