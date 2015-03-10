@@ -1,0 +1,82 @@
+tRNA | Ile | CAU | Escherichia coli | prokaryotic cytosol
+Unique Mass: CCCUU4AGp,2541.3703	ACU}AU6APCGp,3786.716
+tRNA | Sec | UCA | Escherichia coli | prokaryotic cytosol
+Unique Mass: C_Gp,731.1038	4CGp,990.1418	_AAGp,1084.1757	AUCUU_Gp,1978.2664	ACUUCA+AUCCAGp,4214.7498
+tRNA | Val | GAC | Escherichia coli | prokaryotic cytosol
+Unique Mass: UUCA4AGp,2260.3314
+tRNA | Leu | UAG | Escherichia coli | prokaryotic cytosol
+Unique Mass: AUUUAGp,1939.3045	AAADD#Gp,2325.4324	CCUCCCGp,2194.3644
+tRNA | Arg | CCG | Escherichia coli | prokaryotic cytosol
+Unique Mass: KAGp,1051.2128	CC%UCCGp,2210.3414	7UCUCAGp,2273.3804
+tRNA | Cys | GCA | Escherichia coli | prokaryotic cytosol
+Unique Mass: DDAUGp,1614.2736	CCUCCA,1793.3294	CA*APCCGp,2685.4973	U4AACAAAGp,2941.4802
+tRNA | Ser | CGA | Escherichia coli | prokaryotic cytosol
+Unique Mass: CAACUCUACCGp,3487.581	TPCAAAUCCCCCUCUCUCCGp,6250.9811
+tRNA | Arg | CCU | Escherichia coli | prokaryotic cytosol
+Unique Mass: AUUCCUGp,2220.3434	AUAUAACGp,2596.4423	UCCUCUUAGp,2831.4272	CCCCUCCU6AGp,3608.607
+tRNA | Ser | UGA | Escherichia coli | prokaryotic cytosol
+Unique Mass: UBUVGp,1674.2476
+tRNA | Leu | GAG | Escherichia coli | prokaryotic cytosol
+Unique Mass: CCCAAUAGp,2571.4473
+tRNA | Lys | SUU | Escherichia coli | prokaryotic cytosol
+Unique Mass: ACCCACCA,2450.4672	ACUSUU6APCAAUUGp,4964.7786
+tRNA | Leu | BAA | Escherichia coli | prokaryotic cytosol
+Unique Mass: AAADC#Gp,2322.4334	APUBAA*APCAACCGp,4932.8736
+tRNA | Val | VAC | Escherichia coli | prokaryotic cytosol
+Unique Mass: AU4AGp,1649.2476	UCAUCACCCACCA,4001.6957	CACCUCCCUVAC=AGp,4820.7916
+tRNA | Tyr | QUA | Escherichia coli | prokaryotic cytosol
+Unique Mass: CCAAAGp,1960.3635	44CCCGp,1922.2525	ACUQUA*APCUGp,4098.7339	AAUCCUUCCCCCACCACCA,5856.9901
+tRNA | Thr | CGU | Escherichia coli | prokaryotic cytosol
+Unique Mass: UAAUGp,1633.2706	ACUCCUAUUAUCGp,4100.6328
+tRNA | Gln | CUG | Escherichia coli | prokaryotic cytosol
+Unique Mass: /PPCCGp,1928.3255	AJUCUGp,1929.3085
+tRNA | Asn | GUU | Escherichia coli | prokaryotic cytosol
+Unique Mass: UAU7UCACUGp,3214.5091	ACUQUU6APCCGp,4105.7099
+tRNA | Pro | GGG | Escherichia coli | prokaryotic cytosol
+Unique Mass: TPCAAAUCCUCUCGp,4419.6977
+tRNA | Ala | GGC | Escherichia coli | prokaryotic cytosol
+Unique Mass: 7UCAGp,1662.2966
+tRNA | Ser | GGA | Escherichia coli | prokaryotic cytosol
+Unique Mass: AAUCCCCCCCUCACCGp,5012.8305
+tRNA | Ini | CAU | Escherichia coli | prokaryotic cytosol
+Unique Mass: CCCCCGp,1888.3305	TPCAAAUCCGp,3197.5301	BUCAUAACCCGp,3501.596
+tRNA | Leu | )AA | Escherichia coli | prokaryotic cytosol
+Unique Mass: AADC#Gp,1993.3725	ACACAAGp,2289.4244	APU)AA*APCCCUCGp,4973.8516
+tRNA | Met | MAU | Escherichia coli | prokaryotic cytosol
+Unique Mass: DD#Gp,1338.2497	7XCACAGp,2397.4544	AAUCCCGp,2242.3864	CACAUCACUMAU6APGp,5273.8785
+tRNA | His | GUG | Escherichia coli | prokaryotic cytosol
+Unique Mass: CUA4AGp,1954.2975	AUUQUGp,2081.3675	/PPCCAGp,2257.3864	CCACCCCA,2426.4562	AAUCCCAUUAGp,3512.576
+tRNA | Arg | UCU | Escherichia coli | prokaryotic cytosol
+Unique Mass: AUAGp,1327.2367	AC%U{CU6AGp,3387.5711
+tRNA | Ser | GCU | Escherichia coli | prokaryotic cytosol
+Unique Mass: CU6AGp,1777.3236	CUCCC%UGp,2516.3753
+tRNA | Leu | CAG | Escherichia coli | prokaryotic cytosol
+Unique Mass: UCCCCCCCCUCGp,3720.5979
+tRNA | Gly | CCC | Escherichia coli | prokaryotic cytosol
+Unique Mass: CUCUAUACGp,2854.4542	AUUCCCUUCGp,3136.4771
+tRNA | Gln | UUG | Escherichia coli | prokaryotic cytosol
+Unique Mass: /PACCGp,1951.3525	UJU$UGp,2010.2745	AAUCCAGp,2266.3974	CAUUCCCUGp,2830.4432
+tRNA | Trp | CCA | Escherichia coli | prokaryotic cytosol
+Unique Mass: U7UUGp,1640.2536	CCCCUGp,1889.3145	UUCAADDGp,2554.4183	UCUCUCCGp,2501.3823	UBUCCA*AACCGp,3944.7069
+tRNA | Gly | {CC | Escherichia coli | prokaryotic cytosol
+Unique Mass: CCU{CCAAGp,2896.5122	CUAUUACCUCAGp,3794.5989
+tRNA | Thr | UGU | Escherichia coli | prokaryotic cytosol
+Unique Mass: ACUVGp,1683.2596	UAAUCAGp,2267.3814	7UCACCAGp,2601.4573
+tRNA | Pro | CGG | Escherichia coli | prokaryotic cytosol
+Unique Mass: KACGp,1356.2627	AAUCCUCUAUCACCGp,4733.7596
+tRNA | Thr | GGU | Escherichia coli | prokaryotic cytosol
+Unique Mass: UEAGp,1586.2897	CACCCUUGp,2524.4093
+tRNA | Arg | ICG | Escherichia coli | prokaryotic cytosol
+Unique Mass: /ACCGp,1645.3186
+tRNA | Phe | GAA | Escherichia coli | prokaryotic cytosol
+Unique Mass: A4AGp,1343.2137	U7XCCUUGp,2657.4343	AA*APCCCCGp,3319.6081
+tRNA | Ile | GAU | Escherichia coli | prokaryotic cytosol
+Unique Mass: AU6AGp,1801.3346	CCUACCA,2122.3903
+tRNA | Glu | SUC | Escherichia coli | prokaryotic cytosol
+Unique Mass: UAACAGp,1961.3475	UCCCCUUCGp,2806.4322	CCCUSUC/CGp,3208.5281	AAUCCCCUAGp,3182.5311
+tRNA | Pro | UGG | Escherichia coli | prokaryotic cytosol
+Unique Mass: UUVGp,1355.1827	KACCAGp,1990.3735	AAUCCUCUCUCGp,3770.5879
+tRNA | Gly | GCC | Escherichia coli | prokaryotic cytosol
+Unique Mass: AAUAGp,1656.2976
+tRNA | Ala | VGC | Escherichia coli | prokaryotic cytosol
+Unique Mass: 7UCUGp,1639.2696	CUUVGp,1660.2326
