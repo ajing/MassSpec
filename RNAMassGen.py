@@ -3,6 +3,7 @@
 '''
 import re
 import csv
+import Tkinter, tkFileDialog
 from itertools import groupby
 
 MASS_FILE = "./Data/modified_bases_list.txt_mod"
@@ -125,10 +126,10 @@ def Test():
     assert UniqueMass([1,2,3,6,9], 1) == [6,9], UniqueMass([1,2,3,6,9], 1)
     assert UniqueMass([1,2,4,8,9], 1) == [4], UniqueMass([1,2,4,8,9], 1)
 
-def TestSeg():
+def TestSeg(inputfile):
     massdict =  MassListParser(MASS_FILE)
     each_trna = dict()
-    for header, seq in FastAIter("./Data/tRNAseq.txt"):
+    for header, seq in FastAIter(inputfile):
         #print header, "seq", seq
         each_trna[header] = dict()
         each_trna[header]["seq"] = seq
@@ -142,5 +143,8 @@ def TestSeg():
     PrintNiceRNAMass(uniq_rna_mass)
 
 if __name__ == "__main__":
-    TestSeg()
+    root = Tkinter.Tk()
+    root.withdraw()
+    inputfile = tkFileDialog.askopenfilename()
+    TestSeg(inputfile)
     #RNAGen("GGGGCUAUAGCUCAGCDGGGAGAGCGCCUGCUUVGCACGCAGGAG")
