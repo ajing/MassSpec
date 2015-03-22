@@ -18,7 +18,7 @@ def SelectPeaks(peaks, mzRange):
     return [ (mz,i) for mz, i in peaks if mzRange[0] <= mz <= mzRange[1] ]
 
 IGNORE_LIST = []
-def GetPeakbyMZRange(filename, mz_list, rtrange, tolerance = 0.2):
+def GetPeakbyMZRange(filename, mz_list, rtrange = None, tolerance = 0.2):
     # input is mzrange (a tuple), the output is the retention time, intensity of the peak
 
     # for m mz values
@@ -28,12 +28,13 @@ def GetPeakbyMZRange(filename, mz_list, rtrange, tolerance = 0.2):
     max_intensity = 0
     run = pymzml.run.Reader(filename, noiseThreshold = 100)
     for spec in run:
-        try:
-            rt_time = spec["scan time"]
-            if rt_time < rtrange[0]:
-                continue
-            elif rt_time > rtrange[1]:
-                break
+        if not rtrange is None:
+            try:
+                rt_time = spec["scan time"]
+                if rt_time < rtrange[0]:
+                    continue
+                elif rt_time > rtrange[1]:
+                    break
         except:
             continue
         for eachmz in mz_list:
