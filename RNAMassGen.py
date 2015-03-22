@@ -126,7 +126,7 @@ def Test():
     assert UniqueMass([1,2,3,6,9], 1) == [6,9], UniqueMass([1,2,3,6,9], 1)
     assert UniqueMass([1,2,4,8,9], 1) == [4], UniqueMass([1,2,4,8,9], 1)
 
-def TestSeg(inputfile):
+def GetUniqueMass(inputfile):
     massdict =  MassListParser(MASS_FILE)
     each_trna = dict()
     for header, seq in FastAIter(inputfile):
@@ -140,6 +140,10 @@ def TestSeg(inputfile):
     mass_list = [x[1] for x in seg_list]
     uniq_m_list    = UniqueMass(mass_list)
     uniq_rna_mass  = UniqueRNAMass(each_trna, uniq_m_list)
+    return uniq_rna_mass
+
+def TestSeg(inputfile):
+    uniq_rna_mass = GetUniqueMass(inputfile)
     PrintNiceRNAMass(uniq_rna_mass)
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ def SelectPeaks(peaks, mzRange):
     return [ (mz,i) for mz, i in peaks if mzRange[0] <= mz <= mzRange[1] ]
 
 IGNORE_LIST = []
-def GetPeakbyMZRange(filename, mz_list, rtrange, tolerance = 0.2):
+def GetPeakbyMZRange(filename, mz_list, rtrange = None, tolerance = 0.2):
     # input is mzrange (a tuple), the output is the retention time, intensity of the peak
 
     # for m mz values
