@@ -30,10 +30,11 @@ def GetPeakbyMZRange(filename, mz_list, rtrange, tolerance = 0.2):
     for spec in run:
         try:
             rt_time = spec["scan time"]
-            if rt_time < rtrange[0]:
-                continue
-            elif rt_time > rtrange[1]:
-                break
+            if not rtrange is None:
+                if rt_time < rtrange[0]:
+                    continue
+                elif rt_time > rtrange[1]:
+                    break
         except:
             continue
         for eachmz in mz_list:
@@ -85,6 +86,7 @@ def main(inputfile, masslist):
     #inputmass  = 1638.8
     rtinterval = 6
     #rtinterval = 20
+    print inputfile
     for inputmass in masslist:
         mz16, mz18 = MassToCharge(inputmass)
         rt1 , rt2  = GetRT(inputmass, rtinterval)
