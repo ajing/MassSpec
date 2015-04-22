@@ -8,8 +8,6 @@ from itertools import groupby
 
 MASS_FILE = "./Data/modified_bases_list.txt_mod"
 
-
-
 def is_number(s):
     try:
         float(s)

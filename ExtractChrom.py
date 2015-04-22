@@ -1,18 +1,31 @@
+'''
+    Save spectrum info to a data structure, so it's easy to retrieve spect for a special time
+'''
 
+import pymzml
 
 class SpecBasic:
     def __init__(self, rt, index):
         # here the program assume the retention time is a float number
-        self._rt = float(rt)
-        self._idx = index
+        self._rt   = float(rt)
+        self._idx  = index
+        self._spec = None
 
     @property
     def rtime(self):
         return self._rt
 
     @property
-    def index(self, index):
-        self._idx = index
+    def index(self):
+        return self._idx
+
+    @property
+    def spec(self):
+        return self._spec
+
+    @spec.setter
+    def spec(self, spec):
+        self._spec = spec
 
     def __str__(self):
         return "retention time: %s, index: %s" %(self._rt, self._idx)
@@ -33,7 +46,6 @@ class SpecDict(dict):
                     matchlist.append(specbasic)
             return matchlist
 
-
     def __setitem__(self, time, specbasic):
         if not isinstance(specbasic, SpecBasic):
             raise Exception("SpectDict only accept SpecBasic")
@@ -45,24 +57,42 @@ class SpecDict(dict):
     def __str__(self):
         return "number of spec: %s" % (len(self._dict.keys()))
 
+    def getRange(self, s_time, f_time):
+        matchlist = []
+        for int_time in range(int(s_time), int(f_time) + 1):
+            if not int_time in self._dict:
+                continue
+            for specbasic in self._dict[int_time]:
+                if specbasic.rtime > s_time and specbasic.rtime < f_time:
+                    matchlist.append(specbasic)
+        return matchlist
+
 class ExtractSpec:
     def __init__(self, filename):
+        self.start_time  = 0
+        self.end_time    = 0
         self.run, self.specdict = self.setup(filename)
-        print self.specdict
+        #print self.specdict
 
     def setup(self, filename):
         # set up basic data structure
         run = pymzml.run.Reader(filename)
         specdict = SpecDict()
+        self.start_time = run[1]["scan time"]
         for spectrum in run:
             if spectrum['ms level'] == 1:
                 #print max(spectrum.i), min(spectrum.i)
                 specbasic = SpecBasic(spectrum['scan time'], spectrum['id'])
                 specdict[spectrum['scan time']] = specbasic
+                if spectrum["scan time"] > self.end_time:
+                    self.end_time = spectrum["scan time"]
         return run, specdict
 
     def extractWithTime(self, time):
         return self.specdict[time]
+
+    def extractWithTimeRange(self, s_time, f_time):
+        return self.specdict.getRange(s_time, f_time)
 
 
 def ExtractIonChrom(run):
@@ -88,15 +118,18 @@ def ExtractIonChrom(run):
 def ExtractTest():
     exspec = ExtractSpec("./4tRNA1_102009.mzML")
     # extract spectrums for specific time
-    specs  = exspec.extractWithTime(1)
     print "for time 1"
+    specs  = exspec.extractWithTime(1)
     for spec in specs:
         print spec
-    specs  = exspec.extractWithTime(1.1)
     print "for time 1.1"
+    specs  = exspec.extractWithTime(1.1)
     for spec in specs:
         print spec
-
+    print "for time 1.1 to 1.5"
+    specs  = exspec.extractWithTimeRange(1.1, 1.5)
+    for spec in specs:
+        print spec
 
 if __name__ == "__main__":
     ExtractTest()

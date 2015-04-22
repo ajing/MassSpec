@@ -4,6 +4,7 @@
 
 import pymzml
 import Tkinter, tkFileDialog
+from Common import InRange
 
 DEBUG = False
 
@@ -28,14 +29,8 @@ def GetPeakbyMZRange(filename, mz_list, rtrange = None, tolerance = 0.2):
     max_intensity = 0
     run = pymzml.run.Reader(filename, noiseThreshold = 100)
     for spec in run:
-        try:
-            rt_time = spec["scan time"]
-            if not rtrange is None:
-                if rt_time < rtrange[0]:
-                    continue
-                elif rt_time > rtrange[1]:
-                    break
-        except:
+        rt_time = InRange(spec, rtrange)
+        if not rt_time:
             continue
         for eachmz in mz_list:
             eachrange = (eachmz - tolerance, eachmz + tolerance)
@@ -82,19 +77,30 @@ def GetRT(mass, rtinterval):
     rt2 = rt + rtinterval/2
     return rt1, rt2
 
-def main(inputfile, masslist):
+def GetPeaksWithRTEstimate(inputfile, masslist):
     #inputmass  = 1638.8
     rtinterval = 6
     #rtinterval = 20
-    print inputfile
+    mass_iso_dict = dict()
     for inputmass in masslist:
         mz16, mz18 = MassToCharge(inputmass)
         rt1 , rt2  = GetRT(inputmass, rtinterval)
         #print mz16, mz18
         #print rt1, rt2
-        returndict = GetPeakbyMZRange(inputfile, [mz16, mz18], [rt1, rt2])
-        for mass in returndict:
-            print returndict[mass]["max_int"], returndict[mass]["max_mz"], returndict[mass]["max_time"], returndict[mass]["max_id"]
+        mass_iso_dict[inputmass] = GetPeakbyMZRange(inputfile, [mz16, mz18], [rt1, rt2])
+    return mass_iso_dict
+
+def GetDeconvolutedPeak(infile, amass):
+    run = pymzml.run.Reader(filename, noiseThreshold = 100)
+    for spec in run:
+        pass
+
+
+def main(inputfile, masslist):
+    returndict = GetPeaksWithRTEstimate(inputfile, masslist)
+    for mass in returndict:
+        for iso_mass in returndict[mass]:
+            print returndict[mass][iso_mass]["max_int"], returndict[mass][iso_mass]["max_mz"], returndict[mass][iso_mass]["max_time"], returndict[mass][iso_mass]["max_id"]
 
 def Test():
     filename = "E165ug.mzML"
