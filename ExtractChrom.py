@@ -9,7 +9,7 @@ class SpecBasic:
         # here the program assume the retention time is a float number
         self._rt   = float(rt)
         self._idx  = index
-        self._spec = None
+        self._spec = dict()
 
     @property
     def rtime(self):
@@ -71,6 +71,7 @@ class ExtractSpec:
     def __init__(self, filename):
         self.start_time  = 0
         self.end_time    = 0
+        self.interval    = 0
         self.run, self.specdict = self.setup(filename)
         #print self.specdict
 
@@ -78,13 +79,24 @@ class ExtractSpec:
         # set up basic data structure
         run = pymzml.run.Reader(filename)
         specdict = SpecDict()
-        self.start_time = run[1]["scan time"]
+        #self.start_time = run[1]["scan time"]
+        #self.interval   = run[2]["scan time"] - run[1]["scan time"]
+        # first spec flag
+        flag_f = 1
         for spectrum in run:
             if spectrum['ms level'] == 1:
+                if flag_f:
+                    self.start_time = spectrum["scan time"]
+                    flag_f = 0
                 #print max(spectrum.i), min(spectrum.i)
+                #print spectrum['scan time']
                 specbasic = SpecBasic(spectrum['scan time'], spectrum['id'])
+                specbasic.spec["peaks"] = spectrum.peaks
+                specbasic.spec["scan time"] = spectrum['scan time']
+                specbasic.spec["id"] = spectrum['id']
                 specdict[spectrum['scan time']] = specbasic
                 if spectrum["scan time"] > self.end_time:
+                    self.interval = spectrum["scan time"] - self.end_time
                     self.end_time = spectrum["scan time"]
         return run, specdict
 
